@@ -1,4 +1,4 @@
-/* IRO - a simple cross-platform image library
+/* IRO - A simple cross-platform image loader library
  *
  * Copyright (c) 2024 Evan Hemsley
  *

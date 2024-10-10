@@ -1,4 +1,4 @@
-This is IRO, or Image Reconstitution Orchestrator, a simple cross-platform image library.
+This is IRO, or Image Reconstitution Orchestrator, a simple cross-platform image loader library.
 
 License
 -------
@@ -16,10 +16,14 @@ Building IRO
 ------------
 Use CMake:
 
+```
    $ mkdir build/
    $ cd build/
    $ cmake ../
    $ make
+```
+
+You may have to define SDL3_DIR.
 
 Want to contribute?
 -------------------
