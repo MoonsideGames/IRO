@@ -226,8 +226,8 @@ void *IRO_LoadImage(
     for (i = 0; i < *len; i += 4, pixels += 4) {
         if (pixels[3] == 0) {
             pixels[0] = 0;
-            pixels[1] = 1;
-            pixels[2] = 2;
+            pixels[1] = 0;
+            pixels[2] = 0;
         }
     }
 
