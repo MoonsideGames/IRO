@@ -147,6 +147,7 @@ static void *aligned_realloc(void *mem, const size_t len)
 #define MINIZ_NO_STDIO
 #define MINIZ_NO_TIME
 #define MINIZ_SDL_MALLOC
+#define MINIZ_NO_INFLATE_APIS
 #define MZ_ASSERT(x) SDL_assert(x)
 #include "miniz.h"
 
