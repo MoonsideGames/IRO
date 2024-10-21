@@ -70,7 +70,7 @@ set_target_properties(IRO PROPERTIES OUTPUT_NAME "IRO"
 	SOVERSION ${LIB_MAJOR_VERSION}
 )
 
-target_link_libraries(IRO
+target_link_libraries(IRO PRIVATE
     SDL3::SDL3
     SDL3::Headers
 )
