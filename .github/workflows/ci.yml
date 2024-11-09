@@ -82,7 +82,7 @@ jobs:
 
     - name: Download SDL if not cached
       run: |
-        if (-Not (Test-Path C:\SDL))
+        if (-Not (Test-Path C:\SDL3-${{ env.SDL3_VERSION }}))
         {
             Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/preview-$env:SDL3_VERSION/SDL3-devel-$env:SDL3_VERSION-VC.zip" -OutFile C:\SDL.zip
             Expand-Archive C:\SDL.zip -DestinationPath C:\
