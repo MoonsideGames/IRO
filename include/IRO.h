@@ -80,19 +80,32 @@ IROAPI void IRO_FreeImage(void *mem);
 
 /* Image Write API */
 
+/* Returns a buffer of PNG encoded from RGBA8 color data.
+ * You must SDL_free this buffer when you are done with it.
+ *
+ * data: The raw color data.
+ * w:    The width of the color data.
+ * h:    The height of the color data.
+ * size: The size of the PNG buffer.
+ */
+IROAPI void* IRO_EncodePNG(
+    void *data,
+    Uint32 w,
+    Uint32 h,
+    Sint32 *size);
+
 typedef void (IROCALL * IRO_WriteFunc)(
 	void* context,
 	void* data,
-	int32_t size
-);
+	int32_t size);
 
-/* Returns a buffer of PNG encoded from RGBA8 color data.
+/* Writes a PNG encoded from RGBA8 color data using a callback.
  *
  * data:	The raw color data.
  * w:		The width of the color data.
  * h:		The height of the color data.
  */
-IROAPI bool IRO_EncodePNG(
+IROAPI bool IRO_WritePNG(
     IRO_WriteFunc writeFunc,
     void *context,
     void *data,

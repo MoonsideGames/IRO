@@ -276,7 +276,22 @@ void IRO_FreeImage(void *mem)
 
 /* Image Write API */
 
-bool IRO_EncodePNG(
+void* IRO_EncodePNG(
+    void *data,
+    Uint32 w,
+    Uint32 h,
+    Sint32 *size)
+{
+    return stbi_write_png_to_mem(
+        data,
+        w * 4,
+        w,
+        h,
+        4,
+        size);
+}
+
+bool IRO_WritePNG(
     IRO_WriteFunc writeFunc,
     void *context,
     void *data,
