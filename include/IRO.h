@@ -72,16 +72,10 @@ IROAPI bool IRO_GetImageInfo(
     Uint32 *h,
     Uint32 *len);
 
-/* Frees memory returned by IRO_Image_Load. Do NOT free the memory yourself!
- *
- * mem: A pointer previously returned by IRO_Image_LoadPNG.
- */
-IROAPI void IRO_FreeImage(void *mem);
-
 /* Image Write API */
 
 /* Returns a buffer of PNG encoded from RGBA8 color data.
- * You must SDL_free this buffer when you are done with it.
+ * You must call IRO_FreeBuffer on this buffer when you are done with it.
  *
  * data: The raw color data.
  * w:    The width of the color data.
@@ -111,6 +105,52 @@ IROAPI bool IRO_WritePNG(
     void *data,
     Uint32 w,
     Uint32 h);
+
+/* Compression API */
+
+/* Compresses data using zlib encoding.
+ * Allocates and returns a buffer of compressed data.
+ * You must free the buffer with IRO_FreeBuffer when you are done with it.
+ * Returns NULL if compression failed.
+ *
+ * data:             A buffer of data.
+ * dataLength:       The length of the buffer.
+ * compressionLevel: 1 is highest speed, 9 is highest compression factor.
+ * outLength:        Length of the returned buffer.
+ */
+IROAPI void *IRO_Compress(
+    void *data,
+    Uint32 dataLength,
+    int compressionLevel,
+    Uint32 *outLength);
+
+/* Decompresses zlib-encoded data into another buffer.
+ * Returns true on success, false on failure.
+ *
+ * encodedBuffer: A buffer of zlib-encoded data.
+ * decodedBuffer: A buffer to write the decoded data into.
+ * encodedLength: The length of the encoded buffer.
+ * decodedLength: The length of the decoded buffer.
+ */
+IROAPI bool IRO_Decompress(
+    void *encodedBuffer,
+    void *decodedBuffer,
+    Uint32 encodedLength,
+    Uint32 decodedLength);
+
+/* Free API */
+
+/* Frees memory returned by IRO_Image_Load. Do NOT free the memory yourself!
+ *
+ * mem: A pointer previously returned by IRO_Image_LoadPNG.
+ */
+IROAPI void IRO_FreeImage(void *mem);
+
+/* Frees memory returned by IRO compression APIs. Do NOT free the memory yourself!
+ *
+ * buffer: A pointer previously returned by IRO_Decompress.
+ */
+IROAPI void IRO_FreeBuffer(void *buffer);
 
 #ifdef __cplusplus
 }

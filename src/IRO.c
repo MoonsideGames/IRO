@@ -147,7 +147,6 @@ static void *aligned_realloc(void *mem, const size_t len)
 #define MINIZ_NO_STDIO
 #define MINIZ_NO_TIME
 #define MINIZ_SDL_MALLOC
-#define MINIZ_NO_INFLATE_APIS
 #define MZ_ASSERT(x) SDL_assert(x)
 #include "miniz.h"
 
@@ -168,6 +167,25 @@ static unsigned char *dgibson_stbi_zlib_compress(
     }
     *out_len = buflen;
     return buf;
+}
+
+static bool stbi_zlib_decompress(
+    unsigned char *inBuf,
+    unsigned char *outBuf,
+    Uint32 in_len,
+    Uint32 out_len)
+{
+    if (inBuf == NULL || outBuf == NULL) {
+        return false;
+    }
+
+    mz_ulong out_mz = out_len;
+
+    if (mz_uncompress(outBuf, &out_mz, inBuf, in_len) != 0) {
+        return false;
+    }
+
+    return true;
 }
 
 #define STB_IMAGE_WRITE_STATIC
@@ -269,11 +287,6 @@ bool IRO_GetImageInfo(
     return result;
 }
 
-void IRO_FreeImage(void *mem)
-{
-    SDL_aligned_free(mem);
-}
-
 /* Image Write API */
 
 void* IRO_EncodePNG(
@@ -306,4 +319,41 @@ bool IRO_WritePNG(
         4,
         data,
         w * 4);
+}
+
+/* Compression API */
+
+void *IRO_Compress(
+    void *data,
+    Uint32 dataLength,
+    int compressionLevel,
+    Uint32 *outLength)
+{
+    int outlen;
+    unsigned char *result = dgibson_stbi_zlib_compress(data, dataLength, &outlen, compressionLevel);
+    *outLength = outlen;
+    return result;
+}
+
+bool IRO_Decompress(
+    void *encodedBuffer,
+    void *decodedBuffer,
+    Uint32 encodedLength,
+    Uint32 decodedLength)
+{
+    return stbi_zlib_decompress(
+        encodedBuffer,
+        decodedBuffer,
+        encodedLength,
+        decodedLength);
+}
+
+void IRO_FreeBuffer(void *buffer)
+{
+    SDL_free(buffer);
+}
+
+void IRO_FreeImage(void *mem)
+{
+    SDL_aligned_free(mem);
 }
