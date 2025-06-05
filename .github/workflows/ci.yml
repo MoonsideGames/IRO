@@ -107,6 +107,9 @@ jobs:
       with:
         submodules: true
 
+    - name: Install chrpath
+      run: apt install -y chrpath
+
     # This can be replaced by installing libsdl once Ubuntu ships SDL3
     - name: Clone SDL3
       run: git clone --depth 1 --branch release-$SDL3_VERSION https://github.com/libsdl-org/SDL.git
