@@ -16,6 +16,9 @@ jobs:
       with:
         submodules: true
 
+    - name: Install chrpath
+      run: apt install -y chrpath
+
     - name: CMake configure (Debug)
       run: cmake -B debug -G Ninja . -DCMAKE_BUILD_TYPE=Debug
 
@@ -106,9 +109,6 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: true
-
-    - name: Install chrpath
-      run: apt install -y chrpath
 
     # This can be replaced by installing libsdl once Ubuntu ships SDL3
     - name: Clone SDL3
