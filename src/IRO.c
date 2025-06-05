@@ -199,6 +199,11 @@ static bool stbi_zlib_decompress(
 
 #pragma GCC diagnostic pop
 
+uint32_t IRO_LinkedVersion(void)
+{
+	return IRO_COMPILED_VERSION;
+}
+
 /* Image Read API */
 
 void *IRO_LoadImage(

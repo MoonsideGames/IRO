@@ -41,6 +41,18 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#define IRO_MAJOR_VERSION 1
+#define IRO_MINOR_VERSION 0
+#define IRO_PATCH_VERSION 0
+
+#define IRO_COMPILED_VERSION ( \
+	(IRO_MAJOR_VERSION * 100 * 100) + \
+	(IRO_MINOR_VERSION * 100) + \
+	(IRO_PATCH_VERSION) \
+)
+
+IROAPI uint32_t IRO_LinkedVersion(void);
+
 /* Image Read API */
 
 /* Decodes image format data into raw image data.
