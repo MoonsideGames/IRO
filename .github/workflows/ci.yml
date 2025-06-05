@@ -63,7 +63,7 @@ jobs:
       run: |
         if (-Not (Test-Path C:\SDL3-${{ env.SDL3_VERSION }}))
         {
-            Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/preview-$env:SDL3_VERSION/SDL3-devel-$env:SDL3_VERSION-VC.zip" -OutFile C:\SDL.zip
+            Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL3_VERSION/SDL3-devel-$env:SDL3_VERSION-VC.zip" -OutFile C:\SDL.zip
             Expand-Archive C:\SDL.zip -DestinationPath C:\
         }
 
@@ -109,7 +109,7 @@ jobs:
 
     # This can be replaced by installing libsdl once Ubuntu ships SDL3
     - name: Clone SDL3
-      run: git clone --depth 1 --branch preview-$SDL3_VERSION https://github.com/libsdl-org/SDL.git
+      run: git clone --depth 1 --branch release-$SDL3_VERSION https://github.com/libsdl-org/SDL.git
 
     - name: Install dependencies
       run: brew install ninja
